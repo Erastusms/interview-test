@@ -8,16 +8,16 @@ module.exports = {
      *
      * Example:
      * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
+     *   username: 'John Doe',
      *   isBetaMember: false
      * }], {});
      */
     let users = JSON.parse(fs.readFileSync("./seeders/user.json", "utf8"));
     let userData = users.map((user) => {
-      const { name, password } = user;
+      const { username, password } = user;
       const newPassword = encrypter(password);
       return {
-        name,
+        username,
         password: newPassword,
         createdAt: new Date(),
         updatedAt: new Date(),
