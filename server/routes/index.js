@@ -16,7 +16,7 @@ router.post("/login", ApiController.login);
 
 // Get Data
 router.get("/list-jobs/search?", ApiController.searchJobs);
-router.get("/list-jobs/:page?", ApiController.getJobs);
+router.get("/list-jobs/page=:pageNumber", ApiController.getJobs);
 router.get("/details-job/:id", ApiController.getDetailsJob);
 
 

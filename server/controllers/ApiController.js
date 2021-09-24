@@ -15,11 +15,13 @@ class ApiController {
           message: "Username already exist!",
         });
       } else {
-        let user = await User.create({
+        await User.create({
           username,
           password,
         });
-        res.status(201).json(user);
+        res.status(201).json({
+          message: "User has been created"
+        });
       }
     } catch (err) {
       res.status(500).json(err);
@@ -59,10 +61,10 @@ class ApiController {
 
   static async getJobs(req, res) {
     try {
-      const page = req.params.page || 1;
+      const pageNumber = +req.params.pageNumber || 1;
       const jobs = await axios.get(
         "http://dev3.dansmultipro.co.id/api/recruitment/positions.json?page=" +
-          page
+          pageNumber
       );
       const jobsData = jobs.data;
 

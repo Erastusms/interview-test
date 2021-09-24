@@ -1,5 +1,6 @@
 "use strict";
 const { Model } = require("sequelize");
+const { encrypter } = require("../helpers/bcrypt");
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -31,6 +32,11 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     {
+      hooks: {
+        beforeCreate: (user, options) => {
+          user.password = encrypter(user.password);
+        },
+      },
       sequelize,
       modelName: "User",
     }
