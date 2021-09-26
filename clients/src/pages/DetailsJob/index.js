@@ -1,6 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import parse from "html-react-parser";
 
 export default function DetailJob() {
   const URL = "http://localhost:3000";
@@ -32,24 +34,31 @@ export default function DetailJob() {
             {jobs.type}/{jobs.location}
           </div>
           <div className="fs-2 fw-bolder text-primary">{jobs.title}</div>
-          <div className="mt-3">{jobs.description}</div>
+          <div className="mt-3">{parse(`${jobs.description}`)}</div>
         </div>
         <div className="col-4 mt-5">
-          <div className="card mt-5 shadow " style={{ width: "18rem" }}>
-            <div className="card-body">
-              <small className="fw-bolder">{jobs.company}</small>
-              <hr />
-              <img src={jobs.company_logo} alt="company logo" />
-              <a href={jobs.company_url} style={{ "text-decoration": "none" }}>
-                {jobs.company_url}
-              </a>
+          <div className="sticky-top pt-1">
+            <div className="card mt-5 shadow" style={{ width: "18rem" }}>
+              <div className="card-body">
+                <small className="fw-bolder">{jobs.company}</small>
+                <hr />
+                <img src={jobs.company_logo} alt="company logo" />
+                <a
+                  href={jobs.company_url}
+                  style={{ "text-decoration": "none" }}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {jobs.company_url}
+                </a>
+              </div>
             </div>
-          </div>
-          <div className="card mt-2 shadow " style={{ width: "18rem" }}>
-            <div className="card-body">
-              <h5 className="text-black">How to apply</h5>
-              <hr />
-              <p className="card-text">{jobs.how_to_apply}</p>
+            <div className="card mt-3 shadow" style={{ width: "18rem" }}>
+              <div className="card-body">
+                <small className="text-black">How to apply</small>
+                <hr />
+                <p className="card-text h6">{parse(`${jobs.how_to_apply}`)}</p>
+              </div>
             </div>
           </div>
         </div>
