@@ -19,13 +19,8 @@ function App() {
   };
 
   useEffect(() => {
-    if (localStorage.getItem("access_token")) {
-      setLogin(true);
-    } else {
-      setLogin(false);
-    }
+    localStorage.getItem("access_token") ? setLogin(true) : setLogin(false)
   }, []);
-  console.log(login);
 
   return (
     <Router>

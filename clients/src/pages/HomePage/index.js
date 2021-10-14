@@ -10,20 +10,12 @@ export default function HomePage() {
   const [jobs, setJobs] = useState([]);
 
   useEffect(() => {
+    const getData = async () => {
+      const result = await axios.get(`${URL}/list-jobs/page=${currentPage}`);
+      setJobs(result.data);
+    };
     getData();
   }, []);
-
-  const getData = async () => {
-    try {
-      const result = await axios({
-        method: "GET",
-        url: `${URL}/list-jobs/page=${currentPage}`,
-      });
-      setJobs(result.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   return (
     <div className="container-fluid mt-3">
@@ -80,7 +72,10 @@ export default function HomePage() {
             ) : (
               jobs.map((items) => {
                 return (
-                  <Link to={`jobs/${items.id}`} style={{"text-decoration": "none"}}>
+                  <Link
+                    to={`jobs/${items.id}`}
+                    style={{ "text-decoration": "none" }}
+                  >
                     <ListItems key={items.id} items={items} />
                   </Link>
                 );
